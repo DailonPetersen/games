@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body>
+    <form method="POST" th:action="@{../../carrinho/update}">
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Preco</th>
+                <th>Quantidade</th>
+                <th>Imagem</th>
+                <th>Sub Total</th>
+                <th>Deletar</th>
+            </tr>
+            <tr th:each="item: ${session.carrinho}">
+                <td th:text="${item.produto.id_produto}"></td>  
+                <td th:text="${item.produto.nome}"></td>
+                <td th:text="${item.produto.categoria}"></td>
+                <td th:text="${item.produto.preco}"></td>
+                <td>
+                    <input type="number" th:value="${item.quantidade}" name="quantidade" style="width: 50px;"/>
+                </td>
+                <td th:text="${item.quantidade * item.produto.preco}"></td>
+                <td align="center"><a th:href="${'../../carrinho/remove/' + item.produto.id_produto}">X</a></td>
+            </tr>
+            <tr>
+                <td colspan="6">Total</td>
+                <td th:text="${valorTotal}"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Atualiza Carrinho">
+    </form>
+    
+
+
+    <a class="btn btn-danger" th:href="${'../../produtos'}">Continuar comprando</a> 
+    <a class="btn btn-danger" th:href="${'../../carrinho/checkout'}">Check Out</a> 
+</body>
+
+</html>
